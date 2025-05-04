@@ -1,0 +1,17 @@
+.program spi
+.side_set 1 ;                       ;SCK
+.wrap_target
+    wait 1 irq 0    side 0b1
+    set x, 0x8      side 0b0   ;Three clock cycles to start conversion
+    nop             side 0b1
+    nop             side 0b0
+    nop             side 0b1
+    nop             side 0b0
+    nop             side 0b1
+bitloop:
+    in pins, 1      side 0b0   ;Shift out data from pins to cpu, auto push configured
+    jmp x-- bitloop side 0b1
+    irq 1           side 0b1   ;Call mux pio for reading next sample
+.wrap
+
+
