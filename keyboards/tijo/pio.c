@@ -1,3 +1,6 @@
+// Copyright 2025 Karsten Weikamp (@KarstenWeikamp)
+// SPDX-License-Identifier: GPL-2.0-or-later
+
 #include "hardware/pio.h"
 #include "hardware/irq.h"
 

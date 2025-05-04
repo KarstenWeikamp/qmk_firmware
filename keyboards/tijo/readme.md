@@ -1,12 +1,12 @@
 # tijo
 
-![tijo](imgur.com image replace me!)
+![tijo](https://media.discordapp.net/attachments/1316025124276932628/1367488385123356734/IMG_20250501_150800315.jpg?ex=6818100d&is=6816be8d&hm=ee45d5fdf01b804ce385379403305d8ecb8eaf3cac90068f7a29e3fb0b57b080&=&format=webp&width=910&height=683)
 
-*A short description of the keyboard/project*
+RP2040-based keyboard with high polling rate analog hall effect switches
 
 * Keyboard Maintainer: [Karsten Weikamp](https://github.com/KarstenWeikamp)
-* Hardware Supported: *The PCBs, controllers supported*
-* Hardware Availability: *Links to where you can find this hardware*
+* Hardware Supported: RP2040
+* Hardware Availability: n/a
 
 Make example for this keyboard (after setting up your build environment):
 
@@ -25,7 +25,3 @@ Enter the bootloader in 3 ways:
 * **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical reset button**: Briefly press the button on the back of the PCB - some may have pads you must short instead
 * **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available
-
-
-Notes 
-https://github.com/KarstenWeikamp/qmk_firmware/commit/d7173967087e022d20d1f9c812b1b668e9d3f71b
