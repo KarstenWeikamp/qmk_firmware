@@ -4,3 +4,4 @@
 #pragma once
 
 void mux_init(void);
+void mux_trigger_row_read(void);

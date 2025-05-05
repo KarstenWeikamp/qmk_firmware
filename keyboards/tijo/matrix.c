@@ -15,8 +15,8 @@
  */
 
 #include <stdbool.h>
+#include <stdint.h>
 
-#include "debounce.h"
 #include "quantum.h"
 #include "matrix.h"
 
@@ -24,15 +24,27 @@
 #include "spi.h"
 
 void matrix_init_custom(void) {
-    // TODO: initialize hardware here
     custom_spi_init();
     mux_init();
+}
+
+static void read_adc_row(uint8_t adc_num) {
+    // Set cs of adc_num
+    // gpio_write_pin_low(row_pins[adc_num]);
+    // Init adc (first conversion of xc7468 is invalid)
+    startup_dummy_read();
+
+    mux_trigger_row_read();
+    // After were done reading all values pull cs back up
+    //  gpio_write_pin_high(row_pins[adc_num]);
 }
 
 bool matrix_scan_custom(matrix_row_t current_matrix[]) {
     bool matrix_has_changed = false;
 
-    // TODO: add matrix scanning routine here
+    for (uint8_t idx = 0; idx < MATRIX_ROWS; idx++) {
+        read_adc_row(idx);
+    }
 
     return matrix_has_changed;
 }
