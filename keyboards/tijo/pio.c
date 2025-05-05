@@ -13,15 +13,13 @@
 #define PIN_BASE 10
 #define PIN_COUNT 5
 
-#define MUX_NUM_PINS 5
-
 static uint32_t current_mux = 0;
 
 void mux_irq_handler(void) {
     if (pio_interrupt_get(MUX_PIO, MUX_IRQ)) {
         pio_interrupt_clear(MUX_PIO, MUX_IRQ);
 
-        custom_irq_spi_xfer();
+        custom_irq_spi_rx();
 
         // Advance to next pin
         if (current_mux != 4) {
@@ -29,7 +27,6 @@ void mux_irq_handler(void) {
             pio_sm_put_blocking(MUX_PIO, MUX_SM, current_mux);
             return;
         }
-        current_mux = 0;
     }
 }
 
@@ -55,4 +52,9 @@ void mux_init(void) {
     pio_interrupt_clear(MUX_PIO, MUX_IRQ);
 
     pio_sm_set_enabled(MUX_PIO, MUX_SM, true);
+}
+
+void mux_trigger_row_read(void) {
+    current_mux = 0;
+    pio_sm_put_blocking(MUX_PIO, MUX_SM, current_mux);
 }
