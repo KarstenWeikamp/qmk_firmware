@@ -14,13 +14,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-#pragma once
+#include <stdbool.h>
 
-#define HAL_USE_SPI TRUE
-#define HAL_USE_SPI TRUE // enable ChibiOS SPI driver:contentReference[oaicite:0]{index=0}
-#define HAL_USE_DMA TRUE // enable DMA support on RP2040
-#define HAL_USE_PAL TRUE // enable GPIO (PAL) if using pin callbacks
-#define SPI_USE_WAIT TRUE
-#define SPI_SELECT_MODE SPI_SELECT_MODE_NONE
+#include "quantum.h"
+#include "drivers/spi_mux.h"
 
-#include_next <halconf.h>
+#include "matrix.h"
+#include "print.h"
+
+bool matrix_scan_custom(matrix_row_t current_matrix[]) {
+    dprint("HALLO\n");
+    bool matrix_has_changed = false;
+    spi_mux_pio_mux_trigger_read();
+    print("Read\n");
+    return matrix_has_changed;
+}

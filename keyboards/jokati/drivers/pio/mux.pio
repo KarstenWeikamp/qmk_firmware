@@ -14,9 +14,23 @@
 ; along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 .program mux
-pull block         ; Wait for CPU to send pin index
-mov isr, osr        ; Copy to isr
-set pins, 0         ; Clear all pins
-mov pins, isr       ; Set pin corresponding to bit index
-irq 0               ; Notify CPU
+.side_set 5                         ;CS0 to CS4
+.define CS0 0b00001
+.define CS1 0b00010
+.define CS2 0b00100
+.define CS3 0b01000
+.define CS4 0b10000
+.wrap_target
+pull block          side 0      ;Pull Mux pattern from cpu
+out pins, 4         side 0      ;write mux pattern to gpio pins
+irq 0               side CS0    ;Pull first ADC CS low
+wait 1 irq 1        side CS0    ;Wait for SPI PIO to finish reading
+irq 0               side CS1
+wait 1 irq 1        side CS1
+irq 0               side CS2
+wait 1 irq 1        side CS2
+irq 0               side CS3
+wait 1 irq 1        side CS3
+irq 0               side CS4
+wait 1 irq 1        side CS4
 .wrap
